@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+      html, body {
+      display: flex;
+      justify-content: center;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 15px;
+      }
+      form {
+      border: 5px solid #000000;
+      }
+      input[type=text], input[type=password] {
+      width: 100%;
+      padding: 16px 8px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      }
+      button {
+      background-color: #8ebf42;
+      color: white;
+      padding: 14px 0;
+      margin: 10px 0;
+      border: none;
+      cursor: grabbing;
+      width: 100%;
+      }
+      h1 {
+      text-align:center;
+      fone-size:18;
+      }
+      button:hover {
+      opacity: 0.8;
+      }
+      .formcontainer {
+      text-align: left;
+      margin: 24px 50px 12px;
+      }
+      .container {
+      padding: 16px 0;
+      text-align:left;
+      }
+      span.psw {
+      float: right;
+      padding-top: 0;
+      padding-right: 15px;
+      }
+      /* Change styles for span on extra small screens */
+      @media screen and (max-width: 300px) {
+      span.psw {
+      display: block;
+      float: none;
+      }
+    </style>
+
+</head>
+<body style=" background-image: url({% static 'img/bg.jpg' %});">
+<div align="center">
+<h1 style="text-align:center; color:black;">DETAIL PAGE</h1><br>
+<div class="container py-5" align="center">
+ <form  method="POST" align="center" action="" id="personForm" data-cities-url="{% url 'credentials:ajax_load_cities' %}">
+    {% csrf_token %}
+     {{form.as_p}}
+
+
+     <div class="container">
+       <button type="submit" id ="submitForm" class="btn" >Submit</button>
+      </div>
+
+
+         <br>
+         <div class="button">
+             <button> <a href="/logout">logout</a> </button>
+      </div>
+
+   </form>
+        </div>
+</div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#id_district").change(function () {
+        const url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
+        const districtId = $(this).val();  // get the selected country ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'district_id': districtId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_place").html(data);
+
+
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (place) {
+                    html_data += `<option value="${place.id}">${place.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_place").html(html_data);
+                  }
+        });
+
+    });
+
+
+</script>
+<!--<script>-->
+<!--$("#submitForm").click(function() {-->
+<!--   alert("The Form has been Submitted.");-->
+
+<!--});-->
+<!--</script>-->
+
+</body>
+</html>
+

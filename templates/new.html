@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <title>Title</title>
+    <style>
+body {
+  background-image: url({% static 'img/bgg.png' %});
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+</style>
+</head>
+<body>
+
+
+<p style="color:white;">Enter you details <button><a href="{% url 'credentials:detail' %}">Here</a></button></p>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

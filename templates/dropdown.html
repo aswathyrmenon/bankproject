@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<option value="">---------</option>
+{% for place in places %}
+<option value="{{ place.pk }}">{{ place.name }}</option>
+{% endfor %}
+</body>
+</html>
